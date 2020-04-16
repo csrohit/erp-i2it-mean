@@ -1,0 +1,36 @@
+{
+  "name": "smart_i2it",
+  "version": "0.0.1",
+  "description": "MEAN stack based web app for erp system in International Institute of Ifromation Technology",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csrohit/erp-i2it-mean.git"
+  },
+  "keywords": [
+    "i2it",
+    "erp",
+    "angular",
+    "mean"
+  ],
+  "author": "Rohit Nimkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csrohit/erp-i2it-mean/issues"
+  },
+  "homepage": "https://github.com/csrohit/erp-i2it-mean#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.9",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0"
+  }
+}
