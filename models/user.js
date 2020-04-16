@@ -1,8 +1,12 @@
 const mongoose = require('mongoose'),
+    Designation = require('./designation'),
     bcrypt = require('bcryptjs');
 
 
 const userSchema = mongoose.Schema({
+    name: {
+        type: String
+    },
     email: {
         type: String
     },
@@ -11,8 +15,22 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String
-    }
+    },
+    designation:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Designation',
+        required:true
+    },
 })
+
+userSchema.methods.getDesignation = function() {
+    return new Promise((resolve, reject) => {
+        Designation.findById(this.designation, (err, designation) =>{
+            if(err) return reject(err);
+            else return resolve(designation);
+        })
+    })
+}
 
 const User = module.exports = mongoose.model('User', userSchema)
 

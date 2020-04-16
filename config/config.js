@@ -4,7 +4,8 @@ module.exports = {
     db_name: 'i2it',
     db_host: 'mongodb://localhost:27017',
 
+    port: '3000',
 
-
-    port: '3000'
+    // JWT
+    secret : 'csrohit-secret',
 }
