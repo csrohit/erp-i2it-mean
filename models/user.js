@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
     Designation = require('./designation'),
-    bcrypt = require('bcryptjs');
+    bcrypt = require('bcryptjs'),
+    logger = require('../config/logger');
 
 
 const userSchema = mongoose.Schema({
@@ -21,6 +22,10 @@ const userSchema = mongoose.Schema({
         ref:'Designation',
         required:true
     },
+    profile:{
+        type: mongoose.Schema.Types.ObjectId,
+        required:true
+    }
 })
 
 userSchema.methods.getDesignation = function() {
@@ -62,12 +67,19 @@ module.exports.comparePassword = (password, hash) => {
     })
 }
 
-module.exports.addUser = (newUser, callback) => {
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err
-            newUser.password = hash;
-            newUser.save(callback)
+module.exports.createUser = newUser => {
+    return new Promise((resolve, reject)=>{
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+                if (err) return reject(err)
+                newUser.password = hash;
+
+                //TODO delete student profile if user creation fails
+                newUser.save((err, user)=>{
+                    if(err) return reject(err);
+                    else return resolve(user);
+                })
+            })
         })
     })
 }

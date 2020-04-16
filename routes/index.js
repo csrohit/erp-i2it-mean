@@ -1,5 +1,6 @@
 const router = require('express').Router(),
     userController = require('./controllers/userController'),
+    studentController = require('./controllers/studentController'),
     designationController = require('./controllers/designationController');
 
 router.get('/', (req, res)=>{
@@ -15,5 +16,6 @@ router.get('/test', (req, res)=>{
 
 router.use('/user', userController);
 router.use('/designation', designationController);
+router.use('/student', studentController);
 
 module.exports = router;
