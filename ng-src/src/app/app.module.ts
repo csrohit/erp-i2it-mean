@@ -15,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { AuthService } from './services/auth.service';
+import { TutorRegisterComponent } from './components/tutor-register/tutor-register.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AuthService } from './services/auth.service';
     ProfileComponent,
     NotFoundComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    TutorRegisterComponent
   ],
   imports: [
     BrowserModule,
