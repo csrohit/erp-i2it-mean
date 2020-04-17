@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 
 
 const studentSchema = new mongoose.Schema({
+    name: {
+        type: String
+    },
+    email: {
+        type: String
+    },
      roll_no:{
         type:Number,
          required:true
@@ -10,9 +16,9 @@ const studentSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
          ref:'Department'
      },
-     classs:{
+     batch:{
         type:mongoose.Schema.Types.ObjectId,
-         ref:'Cls'
+         ref:'Batch'
      }
  });
  const Student = module.exports = mongoose.model('Student',studentSchema);

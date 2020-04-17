@@ -8,28 +8,34 @@ const router = require('express').Router(),
     const TAG = "StudentCotroller";
 //TODO fetch all students
 router.get('/', async (req, res)=>{
+    try{
+        const students = await Student.find().select('name').exec();
+        return res.json({success:true, students});
+    }catch(err){
+
+    }
     return res.json({success:false, msg:"Req not handled"})
 });
 
 //create user and student
 router.post('/', async (req, res)=>{
     try{
-        const newStudent = new Student({
-            roll_no: req.body.roll_no,
-            department: req.body.department,
-            cls: req.body.cls
-        });
-        const student = await Student.createStudent(newStudent);
-        let newUser = new User({
+        const student = new Student({
             name: req.body.name,
-            username: req.body.username,
+            roll_no: req.body.roll_no,
             email : req.body.email,
+            department: req.body.department,
+            batch: req.body.batch
+        });
+        await student.save();
+        let user = new User({
+            username: req.body.username,
             password: req.body.password,
             designation: req.body.designation,
             profile: student._id
         });
-        const user = await User.createUser(newUser);
-        return res.json({success:true,user, student});
+        const hashedUser = await User.createUser(user);
+        return res.json({success:true,hashedUser, student});
 
     }catch(e){
         logger.error(e, {TAG});
