@@ -1,6 +1,7 @@
 const router = require('express').Router(),
     userController = require('./controllers/userController'),
     studentController = require('./controllers/studentController'),
+    batchController = require('./controllers/batchController'),
     designationController = require('./controllers/designationController'),
     departmentController = require('./controllers/departmentController'),
     subjectController = require('./controllers/subjectController'),
@@ -23,5 +24,6 @@ router.use('/department', departmentController);
 router.use('/subject', subjectController);
 router.use('/tutor', tutorController);
 router.use('/student', studentController);
+router.use('/batch', batchController);
 
 module.exports = router;

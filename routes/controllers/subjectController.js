@@ -24,7 +24,6 @@ router.post('/', async (req, res) => {
             course_objectives: req.body.course_objectives,
             credits: req.body.credits
         });
-        logger.warn(subject, {TAG})
         await subject.save();
         return res.json({success:true, subject});
     }catch(e){

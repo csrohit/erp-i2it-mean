@@ -21,6 +21,7 @@ router.get('/', async (req, res)=>{
 router.post('/', async (req, res)=>{
     try{
         const student = new Student({
+            username: req.body.username,
             name: req.body.name,
             roll_no: req.body.roll_no,
             email : req.body.email,
@@ -29,7 +30,6 @@ router.post('/', async (req, res)=>{
         });
         await student.save();
         let user = new User({
-            username: req.body.username,
             password: req.body.password,
             designation: req.body.designation,
             profile: student._id
