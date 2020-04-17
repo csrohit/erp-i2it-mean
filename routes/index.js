@@ -1,7 +1,10 @@
 const router = require('express').Router(),
     userController = require('./controllers/userController'),
     studentController = require('./controllers/studentController'),
-    designationController = require('./controllers/designationController');
+    designationController = require('./controllers/designationController'),
+    departmentController = require('./controllers/departmentController'),
+    subjectController = require('./controllers/subjectController'),
+    tutorController = require('./controllers/tutorController');
 
 router.get('/', (req, res)=>{
     return res.send("Homepage");
@@ -16,6 +19,9 @@ router.get('/test', (req, res)=>{
 
 router.use('/user', userController);
 router.use('/designation', designationController);
+router.use('/department', departmentController);
+router.use('/subject', subjectController);
+router.use('/tutor', tutorController);
 router.use('/student', studentController);
 
 module.exports = router;
