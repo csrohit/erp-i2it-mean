@@ -1,6 +1,7 @@
 import { Student } from './../../models/student';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-register',
@@ -12,10 +13,6 @@ export class RegisterComponent implements OnInit {
 
   // user related data
   isStudent = true;
-  user = {
-    password: '1234',
-    designation: 'student'
-  };
   confirmPassword = '1234';
   designations = [
     {_id: 'student', title: 'Student'},
@@ -28,9 +25,8 @@ export class RegisterComponent implements OnInit {
     {_id: 'etc', title: 'Information Technology'},
     {_id: 'etc', title: 'Computer Science'}
   ];
-
   // student related things
-  student = new Student('csrohit', 'Rohit Nimkar', 'nehalnimkar@isquareit.edu.in', 57, 'etc' , 'be');
+  student = new Student('csrohit', 'Rohit Nimkar', 'student', 'nehalnimkar@isquareit.edu.in', 57, 'etc', 'be', '1234');
   batches = [
     {_id: 'fe', title: 'FE'},
     {_id: 'se', title: 'SE'},
@@ -39,10 +35,15 @@ export class RegisterComponent implements OnInit {
   ];
 
   onSubmit(registerForm: NgForm) {
+    console.log(this.student);
     console.log(registerForm.value);
+    this.studentService.test().subscribe( data => {
+      console.log(data);
+    });
   }
 
   constructor(
+    private studentService: StudentService
   ) { }
 
   ngOnInit(): void {
