@@ -1,5 +1,6 @@
+import { Student } from './../../models/student';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -7,23 +8,42 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  // TODO: remove following dummy declarations
 
-  registerForm = new FormGroup({
-    name: new FormControl(''),
-    username: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    roll_no: new FormControl(''),
-    batch: new FormControl(''),
-    department: new FormControl('')
-  });
+  // user related data
+  isStudent = true;
+  user = {
+    password: '1234',
+    designation: 'student'
+  };
+  confirmPassword = '1234';
+  designations = [
+    {_id: 'student', title: 'Student'},
+    {_id: 'tutor', title: 'Teacher'},
+    {_id: 'clerk', title: 'Clerk'},
+    {_id: 'librarian', title: 'Librarian'}
+  ];
+  departments = [
+    {_id: 'etc', title: 'Electronics and Telecommunication'},
+    {_id: 'etc', title: 'Information Technology'},
+    {_id: 'etc', title: 'Computer Science'}
+  ];
 
-  constructor() { }
+  // student related things
+  student = new Student('csrohit', 'Rohit Nimkar', 'nehalnimkar@isquareit.edu.in', 57, 'etc' , 'be');
+  batches = [
+    {_id: 'fe', title: 'FE'},
+    {_id: 'se', title: 'SE'},
+    {_id: 'te', title: 'TE'},
+    {_id: 'be', title: 'BE'}
+  ];
 
-  onSubmit(){
-    console.log(this.registerForm.getRawValue());
+  onSubmit(registerForm: NgForm) {
+    console.log(registerForm.value);
   }
 
+  constructor(
+  ) { }
 
   ngOnInit(): void {
   }
