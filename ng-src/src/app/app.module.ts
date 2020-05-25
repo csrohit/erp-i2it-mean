@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +16,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { AuthService } from './services/auth.service';
 import { TutorRegisterComponent } from './components/tutor-register/tutor-register.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,13 +27,14 @@ import { TutorRegisterComponent } from './components/tutor-register/tutor-regist
     NotFoundComponent,
     HomeComponent,
     DashboardComponent,
-    TutorRegisterComponent
+    TutorRegisterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
