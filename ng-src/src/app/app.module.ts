@@ -1,3 +1,4 @@
+import { StudentService } from './services/student.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
@@ -36,7 +37,7 @@ import { TutorRegisterComponent } from './components/tutor-register/tutor-regist
     HttpClientModule,
     FormsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, StudentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
