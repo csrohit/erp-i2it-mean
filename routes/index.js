@@ -7,14 +7,11 @@ const router = require('express').Router(),
     subjectController = require('./controllers/subjectController'),
     tutorController = require('./controllers/tutorController');
 
-router.get('/', (req, res)=>{
-    return res.send("Homepage");
-});
-router.post('/test', (req, res)=>{ 
-    console.log(req.headers);
+
+router.get('/', (req, res) => {
     return res.json({success:true, msg:"Connected to server"});
 })
-router.get('/test', (req, res)=>{
+router.get('/test', (req, res) => {
     return res.json({success:true, msg:'user has been registered'});
 })
 
@@ -25,5 +22,8 @@ router.use('/subject', subjectController);
 router.use('/tutor', tutorController);
 router.use('/student', studentController);
 router.use('/batch', batchController);
+router.use('/', (rerq, res) => {
+    return res.json({success: false, msg: 'invalid request'});
+});
 
 module.exports = router;
