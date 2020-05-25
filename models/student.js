@@ -3,8 +3,6 @@ const {ObjectId} = Schema.Types;
 
 
 const studentSchema = new Schema({
-    name: { type: String, required: true },
-    userName: { type: String, required: true },
     email: { type: String, required:true },
     roll_no:{ type:Number, required:true },
     department:{ type: ObjectId, ref:'Department' },

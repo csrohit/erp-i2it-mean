@@ -5,18 +5,11 @@ const mongoose = require('mongoose'),
 
 
 const userSchema = mongoose.Schema({
-    password: {
-        type: String
-    },
-    designation:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Designation',
-        required:true
-    },
-    profile:{
-        type: mongoose.Schema.Types.ObjectId,
-        required:true
-    }
+    name: { type: String, required: true },
+    userName: { type: String, required: true },
+    password: { type: String, required: true },
+    designation:{ type:mongoose.Schema.Types.ObjectId, ref:'Designation', required:true },
+    profile:{ type: mongoose.Schema.Types.ObjectId, required:true }
 })
 
 userSchema.methods.getDesignation = function() {
