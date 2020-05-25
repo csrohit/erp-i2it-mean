@@ -21,7 +21,6 @@ router.post('/', (req, res)=>{
     let newUser = new User({
         name: req.body.name,
         username: req.body.username,
-        email : req.body.email,
         password: req.body.password,
         designation: req.body.designation
     });

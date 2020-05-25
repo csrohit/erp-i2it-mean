@@ -20,14 +20,14 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try{
         const tutor = new Tutor({
-            username: req.body.username,
-            name : req.body.name,
             email : req.body.email,
             subjects : req.body.subjects,
             department : req.body.department,
         });
         await tutor.save();
         let user = new User({
+            username: req.body.username,
+            name : req.body.name,
             password: req.body.password,
             designation: req.body.designation,
             profile: tutor._id

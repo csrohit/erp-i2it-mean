@@ -1,11 +1,8 @@
 const router = require('express').Router(),
     Student = require('../../models/student'),
     User = require('../../models/user'),
-    
-    
-    
     logger = require('../../config/logger');
-    const TAG = "StudentCotroller";
+const TAG = "StudentCotroller";
 //TODO fetch all students
 router.get('/', async (req, res)=>{
     try{
@@ -21,15 +18,15 @@ router.get('/', async (req, res)=>{
 router.post('/', async (req, res)=>{
     try{
         const student = new Student({
-            username: req.body.username,
-            name: req.body.name,
-            roll_no: req.body.roll_no,
+            roll_no: req.body.rollNo,
             email : req.body.email,
             department: req.body.department,
             batch: req.body.batch
         });
         await student.save();
         let user = new User({
+            userName: req.body.userName,
+            name: req.body.name,
             password: req.body.password,
             designation: req.body.designation,
             profile: student._id
