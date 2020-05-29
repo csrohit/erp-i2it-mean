@@ -14,9 +14,12 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TutorRegisterComponent } from './components/tutor-register/tutor-register.component';
 
 import { AuthService } from './services/auth.service';
-import { TutorRegisterComponent } from './components/tutor-register/tutor-register.component';
+import { DepartmentService } from './services/department.service';
+import { DesignationService } from './services/designation.service';
+import { BatchService } from './services/batch.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +40,7 @@ import { TutorRegisterComponent } from './components/tutor-register/tutor-regist
     HttpClientModule,
     FormsModule
   ],
-  providers: [AuthService, StudentService],
+  providers: [AuthService, StudentService, DepartmentService, DesignationService, DepartmentService, BatchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

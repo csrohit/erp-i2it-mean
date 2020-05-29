@@ -10,12 +10,16 @@ import { Injectable } from '@angular/core';
 })
 export class StudentService {
   headers = new HttpHeaders({'Access-Control-Allow-Origin': '*'});
-  registerStudent(student: Student) {
+  url = 'http://localhost:3000/';
+  // registerStudent(student: Student) {
     
-  }
+  // }
 
   test() {
-    return this.http.get('http://localhost:3000/', {headers: this.headers});
+    return this.http.get(this.url, {headers: this.headers});
+  }
+  register(student: Student) {
+    return this.http.post(this.url, student);
   }
   constructor(
     private http: HttpClient

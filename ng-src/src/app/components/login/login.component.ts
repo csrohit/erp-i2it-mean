@@ -1,20 +1,26 @@
+import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
-  });
+  user = {
+    userName: 'admin',
+    password: '1234'
+  }
 
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
-  onSubmit(): void {
-    console.log(this.loginForm.getRawValue());
+  onSubmit(loginForm: NgForm): void {
+    this.authService.login(this.user).subscribe( data => {
+      console.log(data);
+    });
+    console.log(loginForm.value);
   }
 
   ngOnInit(): void {
