@@ -1,10 +1,11 @@
+import { Batch } from './../../interfaces/batch';
+import { Designation } from './../../interfaces/designation';
+import { Student } from './../../interfaces/student';
 import { Department } from './../../models/department';
-import { Student } from './../../models/student';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { StudentService } from 'src/app/services/student.service';
 import { DesignationService } from 'src/app/services/designation.service';
-import { Designation } from 'src/app/models/designation';
 import { DepartmentService } from 'src/app/services/department.service';
 import { BatchService } from 'src/app/services/batch.service';
 
@@ -15,26 +16,24 @@ import { BatchService } from 'src/app/services/batch.service';
 })
 export class RegisterComponent implements OnInit {
   // TODO: remove following dummy declarations
-
   // user related data
-  isStudent = true;
-  confirmPassword = '1234';
   designations: Designation[];
   departments: Department[];
   // student related things
-  student = new Student('csrohit', 'Rohit Nimkar', '5e9801003b010e7431af32a3', 'nehalnimkar@isquareit.edu.in', 57, 'etc', 'be', '1234');
-  batches = [
-    {_id: 'fe', title: 'FE'},
-    {_id: 'se', title: 'SE'},
-    {_id: 'te', title: 'TE'},
-    {_id: 'be', title: 'BE'}
-  ];
-
+  student: Student = {
+    userName: 'csrohit',
+    name: 'Rohit Nimkar',
+    designation: '5e9801003b010e7431af32a3',
+    email: 'nehalnimkar@isquareit.edu.in',
+    rollNo: 57,
+    batch: '5e993c9519d8405867922905',
+    department: '5e99302dd5e4273bf27489ed',
+    password: '1234'
+  };
+  batches: Batch[];
   onSubmit(registerForm: NgForm) {
     console.log(this.student);
-    // this.studentService.register(this.student).subscribe( data => {
-    //   console.log(data);
-    // });
+    this.studentService.register(this.student).subscribe(data => console.log(data), err => console.log(err));
   }
 
   constructor(
@@ -45,12 +44,19 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.designationService.getDesignations().subscribe( (data: Designation[]) => {
-      this.designations = data;
+    // this.designationService.getDesignations().subscribe( (data: Designation[]) => {
+    //   this.designations = data;
+    // });
+    this.departmentService.getDepartments().subscribe(data => this.departments = data,
+    err => {
+      console.log(err);
     });
-    this.departmentService.getDepartments().subscribe( (data: JSON) => {
-      console.log(data);
-    });
+    this.designationService.getDesignations().subscribe( data => this.designations = data, err => console.log(err));
+    this.batchService.getBatches().subscribe(data => this.batches = data, err => console.log(err));
+
+
+
+
   }
 
 }
