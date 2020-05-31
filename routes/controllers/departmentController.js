@@ -7,10 +7,11 @@ const TAG = "DepartmentController"
 router.get('/', async (req, res) => {
     try{
         const departments = await Department.find().select('title').exec();
-        return res.json({success: true, departments});
+        return res.json(departments);
     }catch(e){
         logger.error(e);
-        return res.json({success: false, msg: "could not fetch departments"});
+        // status code 500 => internal server error
+        return res.status(500).send("could not fetch departments");
     }
 });
 
@@ -23,7 +24,7 @@ router.post('/', async (req, res) => {
             head: req.body.head,
         });
         await newDepartment.save();
-        return res.json({success: true, newDepartment});
+        return res.json(newDepartment);
     }catch(e){
         logger.error(e, {TAG});
         return res.json({success: false, msg: "could not create department"});

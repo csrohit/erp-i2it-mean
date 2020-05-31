@@ -7,10 +7,10 @@ const TAG = "BatchController";
 router.get('/', async (req, res) => {
     try{
         const batches = await Batch.find().select('title').exec();
-        return res.json({success:true, batches});
+        return res.json(batches);
     }catch(e){
         logger.error(e, {TAG});
-        return res.json({success:false, msg: "could not fetch batches"});
+        return res.status(500).send("could not fetch batches");
     }
 })
 

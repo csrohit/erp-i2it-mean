@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
         const designations = await Designation.fetchDesignations();
         return res.json(designations);
     }catch{
-        return res.json({success:false, msg:'Could not fetch designations'});
+        return res.status().send('Could not fetch designations');
     }
 });
 
