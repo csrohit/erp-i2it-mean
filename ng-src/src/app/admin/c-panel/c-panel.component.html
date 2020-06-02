@@ -1,0 +1,15 @@
+<h2>Cpanel home</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            <ul>
+                <li><a [routerLink]="['./student']" routerLinkActive="router-link-active">Student</a></li>
+                <li><a [routerLink]="['./tutor']" routerLinkActive="router-link-active">Teacher</a></li>
+            </ul>
+            
+        </div>
+        <div class="col-8">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

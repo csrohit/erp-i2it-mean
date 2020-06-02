@@ -1,23 +1,19 @@
+import { NotFoundComponent } from './not-found/not-found.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { RegisterComponent } from './components/register/register.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { CpanelComponent } from './components/cpanel/cpanel.component';
+
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: 'cpanel', component: CpanelComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'profile', component: ProfileComponent},
-  { path: 'dashboard', component: DashboardComponent},
-  { path: '**', component: NotFoundComponent}
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
+  { path: 'student', loadChildren: () => import('./student/student.module').then(m => m.StudentModule)},
+  { path: 'department', loadChildren: () => import('./department/department.module').then(m => m.DepartmentModule)},
+  { path: 'designation', loadChildren: () => import('./designation/designation.module').then(m => m.DesignationModule)},
+  { path: 'batch', loadChildren: () => import('./batch/batch.module').then(m => m.BatchModule)},
+  { path: 'subject', loadChildren: () => import('./subject/subject.module').then(m => m.SubjectModule)},
+  { path: 'tutor', loadChildren: () => import('./tutor/tutor.module').then(m => m.TutorModule)},
+  { path: '', redirectTo: 'admin/student', pathMatch: 'full' },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

@@ -1,18 +1,1 @@
-<h2>Login</h2>
-<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-  <label for="userName">Username: </label>
-  <input type="text" name="userName" id="userName" class="form-control" [(ngModel)]="user.userName" #userName="ngModel"
-    required pattern="[a-z][\w]+">
-  <div class="alert alert-danger" *ngIf="userName.invalid && userName.dirty">
-    <span [hidden]="!userName.errors.required">Username is required!</span>
-    <span [hidden]="!userName.errors.pattern">Please enter a valid username</span>
-  </div>
-  <div class="form-group">
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" class="form-control" [(ngModel)]="user.password" #password="ngModel" required>
-    <div class="alert alert-danger" *ngIf="password.invalid && password.dirty">
-      Password is required!
-    </div>
-  </div>
-<button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Login</button>
-</form>
+<p>login works!</p>
