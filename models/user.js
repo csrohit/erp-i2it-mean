@@ -6,7 +6,7 @@ const mongoose = require('mongoose'),
 
 const userSchema = mongoose.Schema({
     name: { type: String, required: true },
-    userName: { type: String, required: true },
+    userName: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     designation:{ type:mongoose.Schema.Types.ObjectId, ref:'Designation', required:true },
     profile:{ type: mongoose.Schema.Types.ObjectId, required:true }
