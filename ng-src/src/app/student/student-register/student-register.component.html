@@ -1,5 +1,24 @@
 <h2>Register Student</h2>
 <form #studentForm="ngForm" (ngSubmit)="onSubmit(studentForm)">
+  
+  
+  <div class="form-group">
+    <label for="name">Name: </label>
+    <input type="text" name="name" id="name" class="form-control" [(ngModel)]="student.name" #name="ngModel" pattern="([a-zA-Z]+\s?)?([a-zA-Z]+)" required>
+    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+      <span *ngIf="name.errors?.required">Name is required!</span>
+      <span *ngIf="name.errors?.pattern">Please enter a valid name!</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email: </label>
+    <input type="email" name="email" id="email" class="form-control" [(ngModel)]="student.email" #email="ngModel"
+      required pattern="^[a-z][\w]+@isquareit.edu.in$">
+    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+      <span *ngIf="email.errors?.required">Email is required!</span>
+      <span *ngIf="email.errors?.pattern">Please enter a valid email</span>
+    </div>
+  </div>
   <div class="form-group">
     <label for="userName">Username: </label>
     <input type="text" name="userName" id="userName" class="form-control" [(ngModel)]="student.userName"
@@ -36,23 +55,6 @@
     </select>
   </div>
 
-  <div class="form-group">
-    <label for="name">Name: </label>
-    <input type="text" name="name" id="name" class="form-control" [(ngModel)]="student.name" #name="ngModel" pattern="([a-zA-Z]+\s?)?([a-zA-Z]+)" required>
-    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-      <span *ngIf="name.errors?.required">Name is required!</span>
-      <span *ngIf="name.errors?.pattern">Please enter a valid name!</span>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="email">Email: </label>
-    <input type="email" name="email" id="email" class="form-control" [(ngModel)]="student.email" #email="ngModel"
-      required pattern="^[a-z][\w]+@isquareit.edu.in$">
-    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-      <span *ngIf="email.errors?.required">Email is required!</span>
-      <span *ngIf="email.errors?.pattern">Please enter a valid email</span>
-    </div>
-  </div>
   <div class="form-group">
     <label for="department">Department: </label>
     <select name="department" id="department" class="form-control" [(ngModel)]="student.department" required>

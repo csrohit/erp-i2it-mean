@@ -7,10 +7,10 @@ const TAG = "SubjectController";
 router.get('/', async (req, res) => {
     try{
         const subjects = await Subject.find().select('title').exec();
-        return res.json({success:true, subjects});
+        return res.json(subjects);
     }catch(e){
         logger.error(e, {TAG});
-        return res.json({success:false, msg: "could not fetch subjects"});
+        return res.status(500).send("could not fetch subjects");
     }
 })
 

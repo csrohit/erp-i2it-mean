@@ -25,12 +25,28 @@ router.post('/', async (req, res) => {
             head: req.body.head
         });
         await batch.save();
-        return res.json({success:true, batch});
+        return res.json(batch);
     }catch(e){
         logger.error(e, {TAG});
-        return res.json({success:false, msg: "could not create batch"});
+        return res.status(500).send("could not create batch");
     }
-})
+});
+
+router.get('/test', async (req, res) => {
+    let batch = new Batch({title:'sample batch'});
+    batch.save(function(err, batch){
+        if(err){
+            return res.status(500).send('error occurred');
+        }
+        return res.json({batch});
+    });
+    // try{
+    //     batch = await batch.save();
+    //     return res.json({batch});
+    // }catch(e){
+    //     return res.status(500).send('error occurred');
+    // }
+});
 
 
 

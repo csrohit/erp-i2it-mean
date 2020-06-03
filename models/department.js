@@ -8,10 +8,6 @@ const departmentSchema = new Schema({
         type: String,
         required: true
     },
-    batch:[{
-        type: ObjectId,
-        ref:'Batch'
-    }],
     faculty:[{
         type: ObjectId,
         ref: 'Tutor'

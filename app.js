@@ -22,7 +22,7 @@ process.env.NODE_ENV = 'Development';
 
 const db = null;
 // Connect to database
-mongoose.connect(config.db_host+'/'+config.db_name, { useUnifiedTopology: true, useNewUrlParser: true })
+mongoose.connect(config.db_host+'/'+config.db_name, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
     .then(()=>{
         logger.info(`Connected to database ${config.db_name}`);
     }).catch(err=>{

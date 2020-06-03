@@ -22,8 +22,8 @@ const routes: Routes = [
           { path: 'tutor', component: TutorRegisterComponent},
           { path: 'batch', component: BatchRegisterComponent},
           { path: 'subject', component: SubjectRegisterComponent},
-          { path: 'Department', component: DepartmentRegisterComponent},
-          { path: 'Designation', component: DesignationRegisterComponent},
+          { path: 'department', component: DepartmentRegisterComponent},
+          { path: 'designation', component: DesignationRegisterComponent},
           { path: '', component: DashboardComponent}
         ]
       },

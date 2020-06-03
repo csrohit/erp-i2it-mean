@@ -5,6 +5,7 @@ import { Subject } from 'src/app/subject/subject';
 import { Tutor } from '../tutor';
 import { DesignationService } from 'src/app/designation/designation.service';
 import { DepartmentService } from 'src/app/department/department.service';
+import { TutorService } from '../tutor.service';
 
 @Component({
   selector: 'app-tutor-register',
@@ -27,13 +28,15 @@ export class TutorRegisterComponent implements OnInit {
     subjects: []
   };
 
-  onSubmit(){
-    console.log();
+  onSubmit() {
+    // TODO: dispplay successfull message and newly created tutor. add a back button to go back to the cpanel dashboard
+    this.tutorSevice.registerTutor(this.tutor).subscribe(data => console.log(data), err => console.log(err));
   }
 
   constructor(
     private departmentService: DepartmentService,
     private designationService: DesignationService,
+    private tutorSevice: TutorService
   ) { }
 
   ngOnInit(): void {

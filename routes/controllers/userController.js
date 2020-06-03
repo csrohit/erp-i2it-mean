@@ -17,21 +17,23 @@ router.get('/', async (req,res)=>{
     }
 })
 
-router.post('/', (req, res)=>{
+router.post('/', async (req, res)=>{
     let newUser = new User({
         name: req.body.name,
-        username: req.body.username,
+        userName: req.body.userName,
         password: req.body.password,
         designation: req.body.designation
     });
-    User.addUser(newUser, (err, user)=>{
-        if(err){
-            return res.json({success:false, msg:"Failed to create user"});
-        }
-        else{
-            return res.json({success:true, msg:"User has been created"});
-        }
-    })
+    let errors = newUser.validateSync();
+    if(errors)
+        return res.json(errors);
+    try{
+        let user = await newUser.save();
+        return res.json(user);
+    }catch(e){
+        console.log(e);
+        return res.status(500).send("error occurred");
+    }
 })
 
 // update user

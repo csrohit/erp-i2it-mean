@@ -31,12 +31,16 @@ router.post('/', async (req, res)=>{
             designation: req.body.designation,
             profile: student._id
         });
-        const hashedUser = await User.createUser(user);
-        return res.json({success:true,hashedUser, student});
+        let errors = user.validateSync();
+        if(errors){
+            return res.status(500).json(...errors);
+        }
+        return res.json(await user.save());
 
     }catch(e){
         logger.error(e, {TAG});
-        return res.json({success:false, msg:"could not create student"});
+        // TODO: check for indexOf('duplicate username') => if present send a custom error else send general error msg to response
+        return res.status(500).send("could not create student");
     }
 });
 

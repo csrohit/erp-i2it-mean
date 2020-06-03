@@ -1,1 +1,57 @@
-<p>batch-register works!</p>
+<h3>Register new Batch</h3>
+<form (ngSubmit)="onSubmit(batchForm)" #batchForm="ngForm">
+  <div class="form-group">
+    <label for="title">Title: </label>
+    <input type="text" name="title" id="title" class="form-control" [(ngModel)]="batch.title" #title="ngModel"
+      pattern="([a-zA-Z]+\s?)*([a-zA-Z]+)" required>
+    <div class="alert alert-danger" [hidden]="title.valid || title.pristine">
+      <span [hidden]="!title.errors?.required">Title field is required!</span>
+      <span [hidden]="!title.errors?.pattern">Please enter a valid title!</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="department">Department: </label>
+    <select name="department" id="department" class="form-control" #department="ngModel" [(ngModel)]="batch.department"
+      required>
+      <option *ngFor="let dept of departments" [value]="dept._id">{{dept.title}}</option>
+    </select>
+    <div class="alert alert-danger" [hidden]="department.valid ||department.pristine">
+      <span [hidden]="!department.errors?.required">Department field is required!</span>
+    </div>
+  </div>
+<!-- TODO: create an input:text field with autocorrect only values and a `+` button to add more subjects -->
+  <div class="form-group">
+      <label for="subjects">Subjects:</label>
+      <select name="subject" id="subject" class="form-control" [(ngModel)]="batch.subjects" #subs="ngModel">
+        <option *ngFor="let subject of subjects" [value]="subject._id">{{subject.title}}</option>
+      </select>
+      <div class="alert alert-danger" [hidden]="subs.valid ||subs.pristine">
+        <span [hidden]="!subs.errors?.required">Title field is required!</span>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <label for="room">Room no:</label>
+      <input type="text" name="room" id="room" class="form-control" [(ngModel)]="batch.room" #room="ngModel" pattern="[A-Z][0-9]{3}" required>
+      <div class="alert alert-danger" [hidden]="room.valid ||room.pristine">
+        <span [hidden]="!room.errors?.required">Room field is required!</span>
+        <span [hidden]="!room.errors?.pattern">Please enter a valid room!</span>
+      </div>
+  </div>
+  <div class="form-group">
+      <label for="strength">Strength:</label>
+      <input type="number" name="strength" id="strength" min="30" max="80" class="form-control" [(ngModel)]="batch.strength" #strength="ngModel" required>
+      <div class="alert alert-danger" [hidden]="strength.valid || strength.pristine">
+          <span>strength field is required!</span>
+      </div>
+  </div>
+   <!-- TODO: after selecting department update the tutors array in component with tutors of the selected department -->
+  <div class="form-group">
+      <label for="head">Head:</label>
+      <select name="head" id="head" class="form-control" [(ngModel)]="batch.head" #head="ngModel" required>
+          <option *ngFor="let tutor of tutors" [value]="tutor._id">{{tutor.name}}</option>
+      </select>
+  </div>
+<button type="submit" class="btn btn-primary" [disabled]="!batchForm.form.valid">Register</button>
+</form>

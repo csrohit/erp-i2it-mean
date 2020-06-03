@@ -7,9 +7,9 @@ const myFormat = printf(({ level, message, timestamp}) => { return `[${timestamp
 const logger = createLogger({
   level: 'info',
   format: combine(
-    timestamp({
-      format: 'YYYY-MM-DD HH:mm:ss'
-    }),
+    // timestamp({
+    //   format: 'YYYY-MM-DD HH:mm:ss'
+    // }),
     // json()
   ),
   transports: [

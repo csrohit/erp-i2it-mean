@@ -5,11 +5,22 @@ const mongoose = require('mongoose'),
 
 
 const userSchema = mongoose.Schema({
-    name: { type: String, required: true },
-    userName: { type: String, required: true, unique: true },
+    name: { type: String, required: true},
+    userName: { type: String, unique: true, index: true, required: true},
     password: { type: String, required: true },
-    designation:{ type:mongoose.Schema.Types.ObjectId, ref:'Designation', required:true },
-    profile:{ type: mongoose.Schema.Types.ObjectId, required:true }
+    designation:{ type:mongoose.Schema.Types.ObjectId, ref:'Designation', required: true},
+    profile:{ type: mongoose.Schema.Types.ObjectId}
+});
+
+userSchema.pre('save', async function(next) {
+    //* Arrow function binds `this` object to owner of the function while
+    //* normal function binds `this` object to the calling object
+    try{
+        let salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    }catch(e){ next(e); }
+    
 })
 
 userSchema.methods.getDesignation = function() {
@@ -21,7 +32,6 @@ userSchema.methods.getDesignation = function() {
     })
 }
 
-const User = module.exports = mongoose.model('User', userSchema)
 
 module.exports.findByUsername = username => {
     return new Promise((resolve, reject) => {
@@ -37,6 +47,7 @@ module.exports.findByUsername = username => {
         });
     })
 }
+    const User = module.exports = mongoose.model('User', userSchema)
 
 module.exports.comparePassword = (password, hash) => {
     return new Promise((resolve, reject) => {
@@ -66,4 +77,4 @@ module.exports.createUser = newUser => {
             })
         })
     })
-}
+};

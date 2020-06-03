@@ -1,5 +1,5 @@
 <h3>Register new Teacher</h3>
-<form #tutorForm = 'ngForm'>
+<form #tutorForm = 'ngForm' (ngSubmit)="onSubmit()">
         
     <div class="form-group">
         <label for="name">Name: </label>

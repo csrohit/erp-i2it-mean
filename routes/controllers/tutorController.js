@@ -9,11 +9,11 @@ const TAG = "TutorController";
 
 router.get('/', async (req, res) => {
     try{
-        const tutors = await Tutor.find().select('name').exec();
-        return res.json({success:true, tutors});
+        const tutors = await User.find().select('name').exec();
+        return res.json(tutors);
     }catch(e){
         logger.error(e);
-        return res.json({success:false, msg:"could not fetch tutors"});
+        return res.status(500).send("could not fetch tutors");
     }
 });
 
@@ -26,16 +26,20 @@ router.post('/', async (req, res) => {
         });
         await tutor.save();
         let user = new User({
-            username: req.body.username,
+            userName: req.body.userName,
             name : req.body.name,
             password: req.body.password,
             designation: req.body.designation,
             profile: tutor._id
         });
-        const hashedUser = await User.createUser(user);
-        return res.json({success:true, tutor, hashedUser})
+        const errors = user.validateSync();
+        if(errors){
+            return res.status(500).json(errors);
+        }
+        delete tutor._id;
+        user = await user.save();
+        return res.json({...user.toObject(), ...tutor.toObject()});
     }catch(e){
-        console.log(e);
         logger.error(e, {TAG});
         return res.json({success:false, msg:"could not create tutor"});
     }
