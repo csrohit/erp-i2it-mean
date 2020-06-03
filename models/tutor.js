@@ -7,7 +7,8 @@ const {ObjectId} = Schema.Types;
 const tutorSchema = new Schema({
     email: {type: String},
     department: {type:ObjectId, ref: 'Department'},
-    subjects: [{type: ObjectId, ref: 'Subject'}]
+    subjects: [{type: ObjectId, ref: 'Subject'}],
+    userData: { type: ObjectId, ref: 'User'}
 });
 
 

@@ -4,9 +4,10 @@ const {ObjectId} = Schema.Types;
 
 const studentSchema = new Schema({
     email: { type: String, required:true },
-    roll_no:{ type:Number, required:true },
-    department:{ type: ObjectId, ref:'Department' },
-    batch:{ type: ObjectId, ref:'Batch' }
+    roll_no: { type:Number, required:true },
+    department: { type: ObjectId, ref:'Department' },
+    batch: { type: ObjectId, ref:'Batch' },
+    userData: { type: ObjectId, ref: 'User'}
  });
  const Student = module.exports = model('Student',studentSchema);
  

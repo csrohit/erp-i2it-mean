@@ -23,7 +23,6 @@ router.post('/', async (req, res)=>{
             department: req.body.department,
             batch: req.body.batch
         });
-        await student.save();
         let user = new User({
             userName: req.body.userName,
             name: req.body.name,
@@ -31,11 +30,16 @@ router.post('/', async (req, res)=>{
             designation: req.body.designation,
             profile: student._id
         });
+        student.userData = user._id;
+        await student.save();
         let errors = user.validateSync();
         if(errors){
             return res.status(500).json(...errors);
         }
-        return res.json(await user.save());
+        delete user._id;
+        delete student._id;
+        user = await user.save();
+        return res.json({...user.toObject(), ...student.toObject()});
 
     }catch(e){
         logger.error(e, {TAG});

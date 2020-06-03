@@ -17,6 +17,15 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try{
+        let tutor = await Tutor.findById(req.params.id).populate('userData');
+        return res.json(tutor);
+    }catch(e){
+        return res.status(500).send(e);
+    }
+});
+
 router.post('/', async (req, res) => {
     try{
         const tutor = new Tutor({
@@ -24,7 +33,6 @@ router.post('/', async (req, res) => {
             subjects : req.body.subjects,
             department : req.body.department,
         });
-        await tutor.save();
         let user = new User({
             userName: req.body.userName,
             name : req.body.name,
@@ -32,11 +40,15 @@ router.post('/', async (req, res) => {
             designation: req.body.designation,
             profile: tutor._id
         });
+        // return res.json(user);
+        tutor.userData = user._id;
+        await tutor.save();
         const errors = user.validateSync();
         if(errors){
             return res.status(500).json(errors);
         }
         delete tutor._id;
+        delete user._id;
         user = await user.save();
         return res.json({...user.toObject(), ...tutor.toObject()});
     }catch(e){
