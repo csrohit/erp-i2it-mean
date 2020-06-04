@@ -17,15 +17,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
-    try{
-        let tutor = await Tutor.findById(req.params.id).populate('userData');
-        return res.json(tutor);
-    }catch(e){
-        return res.status(500).send(e);
-    }
-});
-
 router.post('/', async (req, res) => {
     try{
         const tutor = new Tutor({
@@ -41,7 +32,7 @@ router.post('/', async (req, res) => {
             profile: tutor._id
         });
         // return res.json(user);
-        tutor.userData = user._id;
+        tutor.user = user._id;
         await tutor.save();
         const errors = user.validateSync();
         if(errors){
@@ -57,11 +48,27 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.get('/test', async (req, res) =>{
+    try{
+        let data = await Tutor.aggregate().lookup({from: 'users', localField: 'userData', foreignField: '_id', as: 'user'});
+        return res.json(data);
+    }catch(e){
+        return res.status(500).json(e)
+    }
+    
+});
 
 
 
 
+router.get('/:id', async (req, res) => {
+    try{
+        let tutor = await Tutor.findById(req.params.id).populate('userData');
+        return res.json(tutor);
+    }catch(e){
+        return res.status(500).send(e);
+    }
+});
 
 
-
-    module.exports = router;
+module.exports = router;

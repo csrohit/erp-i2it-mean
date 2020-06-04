@@ -6,6 +6,7 @@ import { Tutor } from '../tutor';
 import { DesignationService } from 'src/app/designation/designation.service';
 import { DepartmentService } from 'src/app/department/department.service';
 import { TutorService } from '../tutor.service';
+import { User } from 'src/app/user';
 
 @Component({
   selector: 'app-tutor-register',
@@ -19,12 +20,14 @@ export class TutorRegisterComponent implements OnInit {
   subjects: Subject[];
 
   tutor: Tutor = {
-    userName: 'varshad',
-    name: 'Varsha Degaonkar',
-    designation: '5e98010d3b010e7431af32a4',
+    user: {
+      userName: 'varshad',
+      name: 'Varsha Degaonkar',
+      designation: '5e98010d3b010e7431af32a4',
+      password: '1234',
+    },
     email: 'varshad@isquareit.edu.in',
     department: '5e99302dd5e4273bf27489ed',
-    password: '1234',
     subjects: []
   };
 

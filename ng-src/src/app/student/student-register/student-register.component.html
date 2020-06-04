@@ -4,7 +4,7 @@
   
   <div class="form-group">
     <label for="name">Name: </label>
-    <input type="text" name="name" id="name" class="form-control" [(ngModel)]="student.name" #name="ngModel" pattern="([a-zA-Z]+\s?)?([a-zA-Z]+)" required>
+    <input type="text" name="name" id="name" class="form-control" [(ngModel)]="student.user.name" #name="ngModel" pattern="([a-zA-Z]+\s?)?([a-zA-Z]+)" required>
     <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
       <span *ngIf="name.errors?.required">Name is required!</span>
       <span *ngIf="name.errors?.pattern">Please enter a valid name!</span>
@@ -21,7 +21,7 @@
   </div>
   <div class="form-group">
     <label for="userName">Username: </label>
-    <input type="text" name="userName" id="userName" class="form-control" [(ngModel)]="student.userName"
+    <input type="text" name="userName" id="userName" class="form-control" [(ngModel)]="student.user.userName"
       #userName="ngModel" required pattern="[a-z][\w]+">
     <div class="alert alert-danger" [hidden]="userName.valid || userName.pristine">
       <span *ngIf="userName.errors?.required">Username is required!</span>
@@ -30,7 +30,7 @@
   </div>
   <div class="form-group">
     <label for="password">Password:</label>
-    <input type="password" name="password" id="password" class="form-control" [(ngModel)]="student.password"
+    <input type="password" name="password" id="password" class="form-control" [(ngModel)]="student.user.password"
       #password="ngModel" required>
     <div class="alert alert-danger" [hidden]="password.valid || password.pristine">
       Password is required!
@@ -50,7 +50,7 @@
   
   <div class="form-group">
     <label for="designation">Designation:</label>
-    <select name="designation" id="designation" class="form-control" [(ngModel)]="student.designation" required>
+    <select name="designation" id="designation" class="form-control" [(ngModel)]="student.user.designation" required>
       <option *ngFor="let designation of designations" [value]="designation._id">{{designation.title}}</option>
     </select>
   </div>

@@ -30,7 +30,7 @@ router.post('/', async (req, res)=>{
             designation: req.body.designation,
             profile: student._id
         });
-        student.userData = user._id;
+        student.user = user._id;
         await student.save();
         let errors = user.validateSync();
         if(errors){

@@ -8,7 +8,7 @@ const tutorSchema = new Schema({
     email: {type: String},
     department: {type:ObjectId, ref: 'Department'},
     subjects: [{type: ObjectId, ref: 'Subject'}],
-    userData: { type: ObjectId, ref: 'User'}
+    user: { type: ObjectId, ref: 'User'}
 });
 
 

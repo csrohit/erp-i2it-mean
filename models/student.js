@@ -7,7 +7,7 @@ const studentSchema = new Schema({
     roll_no: { type:Number, required:true },
     department: { type: ObjectId, ref:'Department' },
     batch: { type: ObjectId, ref:'Batch' },
-    userData: { type: ObjectId, ref: 'User'}
+    user: { type: ObjectId, ref: 'User'}
  });
  const Student = module.exports = model('Student',studentSchema);
  

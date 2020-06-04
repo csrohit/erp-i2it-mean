@@ -21,14 +21,16 @@ export class StudentRegisterComponent implements OnInit {
   departments: Department[];
   // student related things
   student: Student = {
-    userName: 'csrohit',
-    name: 'Rohit Nimkar',
-    designation: '5e9801003b010e7431af32a3',
-    email: 'nehalnimkar@isquareit.edu.in',
+    user:{
+      userName: 'csrohit',
+      name: 'Rohit Nimkar',
+      designation: '5e9801003b010e7431af32a3',
+      password: '1234',
+    },
     rollNo: 57,
+    email: 'nehalnimkar@isquareit.edu.in',
     batch: '5e993c9519d8405867922905',
     department: '5e99302dd5e4273bf27489ed',
-    password: '1234'
   };
   batches: Batch[];
   constructor(
@@ -39,15 +41,16 @@ export class StudentRegisterComponent implements OnInit {
   ) { }
 
   onSubmit(registerForm: NgForm) {
-    this.studentService.register(this.student)
-    .subscribe(
-      data => {
-        console.log(data);
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    console.log(this.student);
+    // this.studentService.register(this.student)
+    // .subscribe(
+    //   data => {
+    //     console.log(data);
+    //   },
+    //   err => {
+    //     console.log(err);
+    //   }
+    // );
   }
   ngOnInit(): void {
     this.departmentService.getDepartments().subscribe( data => this.departments = data, err => console.log(err));
