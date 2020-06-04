@@ -6,10 +6,22 @@ const mongoose = require('mongoose'),
 
 const userSchema = mongoose.Schema({
     name: { type: String, required: true},
-    userName: { type: String, unique: true, index: true, required: true},
+    userName: {
+        type: String,
+        unique: true,
+        required: true,
+        validate: {
+            validator: async function (v){
+                let user = await User.findOne({'userName':v});
+                if(!user) return true
+                return false
+            },
+            message: props => `${props.value} is already registered`
+        }
+    },
     password: { type: String, required: true },
     designation:{ type:mongoose.Schema.Types.ObjectId, ref:'Designation', required: true},
-    profile:{ type: mongoose.Schema.Types.ObjectId}
+    profileId:{ type: mongoose.Schema.Types.ObjectId}
 });
 
 userSchema.pre('save', async function(next) {
@@ -21,7 +33,8 @@ userSchema.pre('save', async function(next) {
         next();
     }catch(e){ next(e); }
     
-})
+});
+
 
 userSchema.methods.getDesignation = function() {
     return new Promise((resolve, reject) => {

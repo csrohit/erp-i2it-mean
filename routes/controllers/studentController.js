@@ -17,30 +17,45 @@ router.get('/', async (req, res)=>{
 //create user and student
 router.post('/', async (req, res)=>{
     try{
-        const student = new Student({
-            roll_no: req.body.rollNo,
-            email : req.body.email,
-            department: req.body.department,
-            batch: req.body.batch
-        });
-        await student.save();
+        // create new user and student documents 
         let user = new User({
             userName: req.body.userName,
             name: req.body.name,
             password: req.body.password,
-            designation: req.body.designation,
-            profile: student._id
+            designation: req.body.designation
         });
-        let errors = user.validateSync();
-        if(errors){
-            return res.status(500).json(...errors);
-        }
-        return res.json(await user.save());
+        let student = new Student({
+            rollNo: req.body.rollNo,
+            email : req.body.email,
+            department: req.body.department,
+            batch: req.body.batch,
+            userId: user._id
+        });
+        user.profileId = student._id;
+
+        // Check for validation errors
+        // userName is also validated for uniqueness
+        user.validateSync();
+        student.validateSync();
+
+        // save student and user
+        student = (await student.save()).toObject();
+        user = (await user.save()).toObject();
+        
+        // send student interface as expected by client
+        delete user._id;
+        delete user.profileId;
+        delete user.__v;
+        delete student.__v;
+
+        //? _id => id of student 
+        //? userId => id of user
+        return res.json({...user, ...student});
 
     }catch(e){
         logger.error(e, {TAG});
-        // TODO: check for indexOf('duplicate username') => if present send a custom error else send general error msg to response
-        return res.status(500).send("could not create student");
+        // errors are validationErrors or db error
+        return res.status(500).send(e);
     }
 });
 
