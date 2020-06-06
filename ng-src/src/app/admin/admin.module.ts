@@ -13,8 +13,8 @@ import { DepartmentRegisterComponent } from '../department/department-register/d
 import { SubjectRegisterComponent } from '../subject/subject-register/subject-register.component';
 import { FormsModule } from '@angular/forms';
 import { TutorModule } from '../tutor/tutor.module';
-import { StudentDetailComponent } from './student-detail/student-detail.component';
-import { StudentUpdateComponent } from './student-update/student-update.component';
+import { StudentDetailComponent } from './student/student-detail/student-detail.component';
+import { StudentUpdateComponent } from './student/student-update/student-update.component';
 
 
 @NgModule({
