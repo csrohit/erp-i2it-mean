@@ -1,13 +1,11 @@
+import { User } from './../user';
+import { Department } from './../department/department';
+import { Subject } from 'src/app/subject/subject';
 export interface Tutor {
-    userName: string;
-    name: string;
-    designation: string;
 
     email: string;
-    subjects: string[];
-    // TODO change dept to string when connection to backend
-    department: string;
-    password ?: string;
+    subjects: Subject[];
+    department: Department[];
     _id ?: string;
-    profile ?: string;
+    userId?: User;
 }

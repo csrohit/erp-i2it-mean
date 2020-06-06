@@ -9,11 +9,21 @@ const TAG = "TutorController";
 
 router.get('/', async (req, res) => {
     try{
-        const tutors = await User.find().select('name').exec();
+        const tutors = await Tutor.find().select('title').populate({path: 'userId', select: 'name'});
         return res.json(tutors);
     }catch(e){
         logger.error(e);
         return res.status(500).send("could not fetch tutors");
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try{
+        let tutor = (await Tutor.findById(req.params.id).select('-__v')).toObject();
+        let user = (await User.findById(tutor.userId).select('-password -_id -__v -profileId')).toObject();
+        return res.json({...user, ...tutor});
+    }catch(e){
+        return res.status(500).json(e);
     }
 });
 
@@ -47,6 +57,7 @@ router.post('/', async (req, res) => {
         // send tutor interface as expected by client
         delete user._id;
         delete user.profileId;
+        delete user.password;
         delete user.__v;
         delete tutor.__v;
 
@@ -62,14 +73,7 @@ router.post('/', async (req, res) => {
 
 
 
-router.get('/:id', async (req, res) => {
-    try{
-        let tutor = await Tutor.findById(req.params.id).populate('userData');
-        return res.json(tutor);
-    }catch(e){
-        return res.status(500).send(e);
-    }
-});
+
 
 
 module.exports = router;

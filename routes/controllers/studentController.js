@@ -3,7 +3,8 @@ const router = require('express').Router(),
     User = require('../../models/user'),
     logger = require('../../config/logger');
 const TAG = "StudentCotroller";
-//TODO fetch all students
+
+
 router.get('/', async (req, res)=>{
     try{
         const students = await Student.find().select('name').exec();
@@ -12,6 +13,27 @@ router.get('/', async (req, res)=>{
 
     }
     return res.json({success:false, msg:"Req not handled"})
+});
+
+
+// fetch specific student
+router.get('/:id', async (req, res) => {
+    try{
+        let student = await Student.findById(req.params.id)
+            .select('-__v')
+            .populate([
+                {
+                    path:'userId',
+                    populate: {path: 'designation', select: 'title'},
+                    select: '-password -__v'
+                },
+                {path: 'department', select:'title'},
+                {path: 'batch', select: 'title'}
+                ]);
+        return res.json(student);
+    }catch(e){
+        return res.status(500).json(e);
+    }
 });
 
 //create user and student
@@ -41,16 +63,16 @@ router.post('/', async (req, res)=>{
         // save student and user
         student = (await student.save()).toObject();
         user = (await user.save()).toObject();
-        
+
         // send student interface as expected by client
-        delete user._id;
-        delete user.profileId;
+        delete user.password;
         delete user.__v;
         delete student.__v;
+        student.userId = user
 
         //? _id => id of student 
         //? userId => id of user
-        return res.json({...user, ...student});
+        return res.json(student);
 
     }catch(e){
         logger.error(e, {TAG});
