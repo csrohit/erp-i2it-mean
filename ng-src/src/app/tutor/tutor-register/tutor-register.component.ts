@@ -6,6 +6,7 @@ import { Tutor } from '../tutor';
 import { DesignationService } from 'src/app/designation/designation.service';
 import { DepartmentService } from 'src/app/department/department.service';
 import { TutorService } from '../tutor.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tutor-register',
@@ -14,29 +15,28 @@ import { TutorService } from '../tutor.service';
 })
 export class TutorRegisterComponent implements OnInit {
 
+  isSubmitted = true;
+
   designations: Designation[];
   departments: Department[];
   subjects: Subject[];
 
-  tutor: Tutor = {
-    userName: 'varshad',
-    name: 'Varsha Degaonkar',
-    designation: '5e98010d3b010e7431af32a4',
-    email: 'varshad@isquareit.edu.in',
-    department: '5e99302dd5e4273bf27489ed',
-    password: '1234',
-    subjects: []
-  };
+  tutor: Tutor;
 
   onSubmit() {
     // TODO: dispplay successfull message and newly created tutor. add a back button to go back to the cpanel dashboard
-    this.tutorSevice.registerTutor(this.tutor).subscribe(data => console.log(data), err => console.log(err));
+    this.tutorSevice.registerTutor(this.tutor)
+      .subscribe( (data: Tutor) => {
+        this.tutor = data;
+        this.isSubmitted = true;
+    }, err => console.log(err));
   }
 
   constructor(
     private departmentService: DepartmentService,
     private designationService: DesignationService,
-    private tutorSevice: TutorService
+    private tutorSevice: TutorService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {

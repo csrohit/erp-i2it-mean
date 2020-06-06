@@ -20,16 +20,7 @@ export class StudentRegisterComponent implements OnInit {
   designations: Designation[];
   departments: Department[];
   // student related things
-  student: Student = {
-    userName: 'csrohit',
-    name: 'Rohit Nimkar',
-    designation: '5e9801003b010e7431af32a3',
-    email: 'nehalnimkar@isquareit.edu.in',
-    rollNo: 57,
-    batch: '5e993c9519d8405867922905',
-    department: '5e99302dd5e4273bf27489ed',
-    password: '1234'
-  };
+  student: Student;
   batches: Batch[];
   constructor(
     private departmentService: DepartmentService,

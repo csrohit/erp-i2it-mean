@@ -4,7 +4,7 @@
   
   <div class="form-group">
     <label for="name">Name: </label>
-    <input type="text" name="name" id="name" class="form-control" [(ngModel)]="student.name" #name="ngModel" pattern="([a-zA-Z]+\s?)?([a-zA-Z]+)" required>
+    <input type="text" name="name" id="name" class="form-control" ngModel #name="ngModel" pattern="([a-zA-Z]+\s?)?([a-zA-Z]+)" required>
     <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
       <span *ngIf="name.errors?.required">Name is required!</span>
       <span *ngIf="name.errors?.pattern">Please enter a valid name!</span>
@@ -12,8 +12,7 @@
   </div>
   <div class="form-group">
     <label for="email">Email: </label>
-    <input type="email" name="email" id="email" class="form-control" [(ngModel)]="student.email" #email="ngModel"
-      required pattern="^[a-z][\w]+@isquareit.edu.in$">
+    <input type="email" name="email" id="email" class="form-control" ngModel #email="ngModel" required pattern="^[a-z][\w]+@isquareit.edu.in$">
     <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
       <span *ngIf="email.errors?.required">Email is required!</span>
       <span *ngIf="email.errors?.pattern">Please enter a valid email</span>
@@ -21,8 +20,7 @@
   </div>
   <div class="form-group">
     <label for="userName">Username: </label>
-    <input type="text" name="userName" id="userName" class="form-control" [(ngModel)]="student.userName"
-      #userName="ngModel" required pattern="[a-z][\w]+">
+    <input type="text" name="userName" id="userName" class="form-control" ngModel #userName="ngModel" required pattern="[a-z][\w]+">
     <div class="alert alert-danger" [hidden]="userName.valid || userName.pristine">
       <span *ngIf="userName.errors?.required">Username is required!</span>
       <span *ngIf="userName.errors?.pattern">Please enter a valid username</span>
@@ -30,8 +28,7 @@
   </div>
   <div class="form-group">
     <label for="password">Password:</label>
-    <input type="password" name="password" id="password" class="form-control" [(ngModel)]="student.password"
-      #password="ngModel" required>
+    <input type="password" name="password" id="password" class="form-control" ngModel #password="ngModel" required>
     <div class="alert alert-danger" [hidden]="password.valid || password.pristine">
       Password is required!
     </div>
@@ -39,8 +36,7 @@
   <div class="form-group">
     <!-- TODO: add a custom validator for matching password and confirmPassword -->
     <label for="confirmPassword">Confirm password:</label>
-    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
-      ngModel #confirmPassword="ngModel" required pattern="{{password.value}}">
+    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" ngModel #confirmPassword="ngModel" required pattern="{{password.value}}">
       <div class="alert alert-danger" [hidden]="confirmPassword.valid || confirmPassword.pristine">
         <span *ngIf="confirmPassword.errors?.required">Confirm password is required</span>
         <span *ngIf="confirmPassword.errors?.pattern">Confirm password must match Password!</span>
@@ -50,29 +46,27 @@
   
   <div class="form-group">
     <label for="designation">Designation:</label>
-    <select name="designation" id="designation" class="form-control" [(ngModel)]="student.designation" required>
+    <select name="designation" id="designation" class="form-control" ngModel required>
       <option *ngFor="let designation of designations" [value]="designation._id">{{designation.title}}</option>
     </select>
   </div>
 
   <div class="form-group">
     <label for="department">Department: </label>
-    <select name="department" id="department" class="form-control" [(ngModel)]="student.department" required>
+    <select name="department" id="department" class="form-control" ngModel required>
       <option *ngFor="let dept of departments" [value]="dept._id">{{dept.title}}</option>
     </select>
   </div>
     <div class="form-group">
       <label for="rollNo">Roll no: </label>
-      <input type="number" name="rollNo" id="rollNo" max="80" class="form-control" [(ngModel)]="student.rollNo"
-        #rollNo="ngModel" required>
+      <input type="number" name="rollNo" id="rollNo" max="80" class="form-control" ngModel #rollNo="ngModel" required>
       <div class="alert alert-danger" [hidden]="rollNo.valid || rollNo.pristine">
         A valid roll no is required
       </div>
     </div>
     <div class="form-group">
       <label for="batch">Batch: </label>
-      <select name="batch" id="batch" class="form-control" [(ngModel)]="student.batch" [(ngModel)]="student.batch"
-        required>
+      <select name="batch" id="batch" class="form-control" ngModel required>
         <option *ngFor="let batch of batches" [value]="batch._id">{{batch.title}}</option>
       </select>
     </div>
