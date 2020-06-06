@@ -1,9 +1,11 @@
 import { User } from './../user';
+import { Department } from './../department/department';
+import { Subject } from 'src/app/subject/subject';
 export interface Tutor {
+
     email: string;
-    subjects: string[];
-    // TODO change dept to string when connection to backend
-    department: string;
+    subjects: Subject[];
+    department: Department[];
     _id ?: string;
-    user?: User;
+    userId?: User;
 }

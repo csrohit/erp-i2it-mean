@@ -1,11 +1,11 @@
-import { User } from '../user';
-
+import { User } from './../user';
+import { Batch } from './../batch/batch';
+import { Department } from './../department/department';
 export interface Student {
-    email: string;
-    rollNo: number;
-    // TODO change dept to string when connection to backend
-    department: string;
-    batch: string;
     _id ?: string;
-    user?: User;
+    email?: string;
+    rollNo?: number;
+    department?: Department;
+    batch?: Batch;
+    userId?: User;
 }

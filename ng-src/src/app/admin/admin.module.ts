@@ -1,4 +1,4 @@
-import { DepartmentService } from './../department/department.service';
+import { StudentModule } from './../student/student.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,6 +12,9 @@ import { DesignationRegisterComponent } from '../designation/designation-registe
 import { DepartmentRegisterComponent } from '../department/department-register/department-register.component';
 import { SubjectRegisterComponent } from '../subject/subject-register/subject-register.component';
 import { FormsModule } from '@angular/forms';
+import { TutorModule } from '../tutor/tutor.module';
+import { StudentDetailComponent } from './student-detail/student-detail.component';
+import { StudentUpdateComponent } from './student-update/student-update.component';
 
 
 @NgModule({
@@ -24,11 +27,14 @@ import { FormsModule } from '@angular/forms';
     DesignationRegisterComponent,
     DepartmentRegisterComponent,
     SubjectRegisterComponent,
+    StudentDetailComponent,
+    StudentUpdateComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule,
+    TutorModule
   ],
   providers: []
 })

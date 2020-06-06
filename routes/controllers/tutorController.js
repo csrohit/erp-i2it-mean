@@ -9,7 +9,7 @@ const TAG = "TutorController";
 
 router.get('/', async (req, res) => {
     try{
-        const tutors = await User.find().select('name').exec();
+        const tutors = await Tutor.find().select('title').populate({path: 'userId', select: 'name'});
         return res.json(tutors);
     }catch(e){
         logger.error(e);
@@ -17,34 +17,57 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try{
+        let tutor = (await Tutor.findById(req.params.id).select('-__v')).toObject();
+        let user = (await User.findById(tutor.userId).select('-password -_id -__v -profileId')).toObject();
+        return res.json({...user, ...tutor});
+    }catch(e){
+        return res.status(500).json(e);
+    }
+});
+
 router.post('/', async (req, res) => {
     try{
-        const tutor = new Tutor({
-            email : req.body.email,
-            subjects : req.body.subjects,
-            department : req.body.department,
-        });
+        //  create new user and tutor documents
         let user = new User({
             userName: req.body.userName,
             name : req.body.name,
             password: req.body.password,
             designation: req.body.designation,
-            profile: tutor._id
         });
-        // return res.json(user);
-        tutor.user = user._id;
-        await tutor.save();
-        const errors = user.validateSync();
-        if(errors){
-            return res.status(500).json(errors);
-        }
-        delete tutor._id;
+
+        let tutor = new Tutor({
+            email : req.body.email,
+            subjects : req.body.subjects,
+            department : req.body.department,
+            userId: user._id
+        });
+        user.profileId = tutor._id;
+
+        // check for validation errors
+        // userName is also checked for uniqueness
+        user.validateSync();
+        tutor.validateSync()
+
+
+        tutor = (await tutor.save()).toObject();
+        user = (await user.save()).toObject();
+
+        // send tutor interface as expected by client
         delete user._id;
-        user = await user.save();
-        return res.json({...user.toObject(), ...tutor.toObject()});
+        delete user.profileId;
+        delete user.password;
+        delete user.__v;
+        delete tutor.__v;
+
+        //? _id => id of tutor 
+        //? userId => id of user
+        return res.json({...user, ...tutor});
     }catch(e){
         logger.error(e, {TAG});
-        return res.json({success:false, msg:"could not create tutor"});
+        // errors are validationErrors or db error
+        return res.status(500).send(e);
     }
 });
 
@@ -69,6 +92,5 @@ router.get('/:id', async (req, res) => {
         return res.status(500).send(e);
     }
 });
-
 
 module.exports = router;
