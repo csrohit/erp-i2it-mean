@@ -20,6 +20,13 @@ export class StudentService {
     return this.http.get<Student>(this.url + id, {headers: this.headers}).pipe(catchError(handleError));
   }
 
+  getStudents(): Observable<Student[]>{
+    return this.http.get<Student[]>(this.url, {headers: this.headers});
+  }
+
+  deleteStudent(id: string){
+    return this.http.delete(this.url + id, {headers: this.headers});
+  }
   constructor(
     private http: HttpClient
   ) { }

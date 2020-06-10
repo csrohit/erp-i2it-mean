@@ -1,1 +1,8 @@
-<p>batch-list works!</p>
+<h2>List of batches</h2>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let batch of batches">
+        <a [routerLink]="['./', batch._id]" routerLinkActive="active" class="nav-link" >{{batch.title}}</a>
+        <button class="btn btn-primary" [routerLink]="['./update', batch._id]" routerLinkActive="active" >Update</button>
+        <button class="btn btn-danger" (click)='deleteBatch(batch._id)'>Delete</button>
+    </li>
+</ul>

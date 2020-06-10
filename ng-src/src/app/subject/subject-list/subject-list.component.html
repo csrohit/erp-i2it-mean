@@ -1,1 +1,8 @@
-<p>subject-list works!</p>
+<h2>Subjects</h2>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let subject of subjects">
+        <a [routerLink]="['./', subject._id]" routerLinkActive="active"  class="nav-link">{{subject.title}}</a>
+        <button class="btn btn-primary" [routerLink]="['./update', subject._id]" >Update</button>
+        <button class="btn btn-danger" (click)="deleteSubject(subject._id)">Delete</button>
+    </li>
+</ul>

@@ -1,2 +1,10 @@
-<p>student-list works!</p>
-<router-outlet></router-outlet>
+<h2>List of students</h2>
+
+<!-- TODO:  -->
+<ul class="list-group list-group-flush">
+    <li class="list-group-item" *ngFor="let student of students">
+      <a [routerLink]="['./', student._id]" routerLinkActive="router-link-active" >{{student.userId.name}}</a>
+      <a [routerLink]="['./update', student._id]" routerLinkActive="router-link-active" ><button class="btn btn-primary">Update</button></a>
+      <button class="btn btn-danger" (click)="deleteStudent()">Delate</button>
+    </li>
+</ul>

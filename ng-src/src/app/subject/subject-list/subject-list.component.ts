@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SubjectService } from '../subject.service';
+import { Subject } from 'src/app/subject/subject';
 
 @Component({
   selector: 'app-subject-list',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subject-list.component.css']
 })
 export class SubjectListComponent implements OnInit {
-
-  constructor() { }
+subjects: Subject[];
+  constructor(
+    private subjectService: SubjectService
+  ) { }
 
   ngOnInit(): void {
+    this.subjectService.getSubjects().subscribe((data: Subject[]) => this.subjects = data, err => console.log(err));
+  }
+
+  deleteSubject(id: string){
+    console.log('Subject Deleted');
   }
 
 }

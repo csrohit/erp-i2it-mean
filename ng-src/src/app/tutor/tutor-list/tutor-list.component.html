@@ -1,1 +1,8 @@
-<p>tutor-list works!</p>
+<h2>Faculty: </h2>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let tutor of tutors">
+        <a [routerLink]="['./', tutor._id]" class="nav-link">{{tutor.userId.name}}</a>
+        <button class="btn btn-primary" [routerLink]="['./update', tutor._id]">Update</button>
+        <button class="btn btn-danger" (click)="deleteTutor(tutor._id)">Delete</button>
+    </li>
+</ul>

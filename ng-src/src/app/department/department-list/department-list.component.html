@@ -1,1 +1,8 @@
-<p>department-list works!</p>
+<h2>Department list</h2>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let dept of departments">
+        <a [routerLink]="['./', dept._id]" routerLinkActive="active"  class="nav-link">{{dept.title}}</a>
+        <button class="btn btn-primary" [routerLink]="['./update', dept._id]" routerLinkActive="active" >Update</button>
+        <button class="btn btn-danger" (click)="deleteDepartment(dept._id)">Delete</button>
+    </li>
+</ul>

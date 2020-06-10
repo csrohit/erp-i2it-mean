@@ -7,12 +7,13 @@ const TAG = "StudentCotroller";
 
 router.get('/', async (req, res)=>{
     try{
-        const students = await Student.find().select('name').exec();
-        return res.json({success:true, students});
+        // find students and get only name field from userId
+        const students = await Student.find().select('userId').populate({path: 'userId', select: 'name'});
+        return res.json(students);
     }catch(err){
-
+        console.log(err);
+        return res.status(500).json(new Error('COuld not fetch students'));
     }
-    return res.json({success:false, msg:"Req not handled"})
 });
 
 
