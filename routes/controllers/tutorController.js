@@ -19,9 +19,18 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try{
-        let tutor = (await Tutor.findById(req.params.id).select('-__v')).toObject();
-        let user = (await User.findById(tutor.userId).select('-password -_id -__v -profileId')).toObject();
-        return res.json({...user, ...tutor});
+        let tutor = await Tutor.findById(req.params.id)
+            .select('-__v')
+            .populate([
+                {
+                    path: 'userId',
+                    populate: { path: 'designation', select: 'title'},
+                    select: '-password, -__v'
+                },
+                { path: 'department', select: 'title'},
+                { path: 'subjects', select: 'title'}
+            ]);
+        return res.json(tutor);
     }catch(e){
         return res.status(500).json(e);
     }
